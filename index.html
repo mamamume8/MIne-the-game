@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mime the Action! - English Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #fef08a; /* Bright yellow playful background */
+            background-image: radial-gradient(#fde047 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        h1, h2, h3, .fun-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .pop-in {
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Card flip for the action generator */
+        .card-container {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 p-4 md:p-8 flex flex-col items-center">
+
+    <div class="max-w-4xl w-full space-y-8 pb-16">
+        
+        <header class="text-center space-y-4 pt-4">
+            <div class="inline-block bg-white px-6 py-2 rounded-full shadow-md font-bold text-orange-500 mb-2 transform -rotate-2">
+                Present Simple Practice
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold text-blue-600 drop-shadow-md">
+                🎭 Mime the Action!
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-700 font-semibold max-w-2xl mx-auto bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-sm border-2 border-yellow-200">
+                Act out everyday activities without speaking, while your classmates guess what you are doing!
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- How to Play Section -->
+            <section class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-green-400 h-full">
+                <h2 class="text-3xl font-bold text-green-500 mb-4 flex items-center gap-2 fun-font">
+                    <span class="text-4xl">🎲</span> How to Play
+                </h2>
+                <ul class="space-y-4 text-lg">
+                    <li class="flex items-start gap-3">
+                        <div class="bg-green-100 text-green-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 mt-1">1</div>
+                        <div><strong>The Actor:</strong> Click the big button below to get a secret daily routine. Don't show anyone!</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-green-100 text-green-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 mt-1">2</div>
+                        <div><strong>Action:</strong> Act out the routine using only your body. No words, no sounds!</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-green-100 text-green-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 mt-1">3</div>
+                        <div><strong>The Class:</strong> Watch the actor and shout out correct English sentences to win a point!</div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Grammar Examples Section -->
+            <section class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-purple-400 h-full">
+                <h2 class="text-3xl font-bold text-purple-500 mb-4 flex items-center gap-2 fun-font">
+                    <span class="text-4xl">🧠</span> Grammar Rules
+                </h2>
+                <p class="text-gray-600 mb-4 font-semibold">To guess correctly, you must use complete sentences!</p>
+                
+                <div class="space-y-3">
+                    <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-3">
+                        <div class="text-sm font-bold text-purple-400 uppercase tracking-wide">✅ Affirmative (He/She)</div>
+                        <div class="text-xl font-bold text-purple-700 mt-1">
+                            "He brush<span class="text-pink-500 underline decoration-4">es</span> his teeth!"
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-3">
+                        <div class="text-sm font-bold text-blue-400 uppercase tracking-wide">❓ Question</div>
+                        <div class="text-xl font-bold text-blue-700 mt-1">
+                            "Do you wake up early?"
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-3">
+                        <div class="text-sm font-bold text-red-400 uppercase tracking-wide">❌ Negative (Guessing Wrong)</div>
+                        <div class="text-xl font-bold text-red-700 mt-1">
+                            "No, he doe<span class="text-pink-500 underline decoration-4">sn't</span> read a book."
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Interactive Game Section -->
+        <section class="bg-blue-500 rounded-3xl p-8 shadow-2xl text-center border-4 border-white relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-48 h-48 bg-white opacity-10 rounded-full translate-x-1/4 translate-y-1/4"></div>
+
+            <h2 class="text-4xl font-bold text-white mb-6 fun-font relative z-10 drop-shadow-md">
+                ✨ Action Generator ✨
+            </h2>
+
+            <!-- Card flip container -->
+            <div class="card-container w-full max-w-md mx-auto h-64 mb-8 cursor-pointer relative z-10" onclick="flipCard()">
+                <div id="action-card" class="card-inner w-full h-full relative shadow-xl rounded-3xl">
+                    
+                    <!-- Front of card (Hidden state) -->
+                    <div class="card-face absolute w-full h-full bg-white rounded-3xl border-8 border-blue-300 flex flex-col items-center justify-center p-6 text-center shadow-inner">
+                        <span class="text-6xl mb-2 animate-bounce">❓</span>
+                        <h3 class="text-2xl font-bold text-blue-400 fun-font">Secret Action</h3>
+                        <p class="text-gray-500 text-sm mt-2 font-bold">Tap card to hide/show</p>
+                    </div>
+
+                    <!-- Back of card (Revealed state) -->
+                    <div class="card-face card-back absolute w-full h-full bg-yellow-300 rounded-3xl border-8 border-orange-400 flex flex-col items-center justify-center p-6 text-center shadow-inner">
+                        <span id="action-emoji" class="text-6xl mb-3 drop-shadow-md">🤔</span>
+                        <h3 id="action-text" class="text-3xl md:text-4xl font-bold text-gray-900 fun-font leading-tight">
+                            Click 'Next Action' below!
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10">
+                <button onclick="generateNewAction()" class="bg-orange-500 hover:bg-orange-600 text-white border-b-8 border-orange-700 active:border-b-0 active:translate-y-2 text-2xl font-bold py-4 px-10 rounded-full shadow-xl transition-all fun-font wiggle">
+                    🎲 Get New Action!
+                </button>
+                <p class="text-blue-100 mt-4 font-semibold text-sm">
+                    Only the Actor should look at the screen right now!
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Array of Present Simple daily routines
+        const routineActions = [
+            { text: "Brush your teeth", emoji: "🪥" },
+            { text: "Take a shower", emoji: "🚿" },
+            { text: "Eat breakfast", emoji: "🥞" },
+            { text: "Catch the bus", emoji: "🚌" },
+            { text: "Walk the dog", emoji: "🐕" },
+            { text: "Do homework", emoji: "📝" },
+            { text: "Read a book", emoji: "📖" },
+            { text: "Wash the dishes", emoji: "🍽️" },
+            { text: "Play video games", emoji: "🎮" },
+            { text: "Go to sleep", emoji: "😴" },
+            { text: "Wake up", emoji: "🥱" },
+            { text: "Get dressed", emoji: "👕" },
+            { text: "Comb your hair", emoji: "梳" }, // Using a comb emoji or alternative
+            { text: "Make the bed", emoji: "🛏️" },
+            { text: "Cook dinner", emoji: "🍳" },
+            { text: "Listen to music", emoji: "🎧" }
+        ];
+
+        // DOM Elements
+        const cardInner = document.getElementById('action-card');
+        const actionText = document.getElementById('action-text');
+        const actionEmoji = document.getElementById('action-emoji');
+        
+        let isFlipped = false;
+
+        // Function to flip the card manually (hide/show)
+        function flipCard() {
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                cardInner.classList.add('is-flipped');
+            } else {
+                cardInner.classList.remove('is-flipped');
+            }
+        }
+
+        // Function to generate a random action and force the card to flip open
+        function generateNewAction() {
+            // Pick a random action
+            const randomIndex = Math.floor(Math.random() * routineActions.length);
+            const selectedAction = routineActions[randomIndex];
+
+            // Update DOM with new action
+            actionText.textContent = selectedAction.text;
+            
+            // Handle edge case for comb emoji if some systems don't render it well
+            actionEmoji.textContent = selectedAction.text === "Comb your hair" ? "💇" : selectedAction.emoji;
+
+            // Animate text change
+            actionText.classList.remove('pop-in');
+            void actionText.offsetWidth; // trigger reflow to restart animation
+            actionText.classList.add('pop-in');
+
+            // Ensure card flips to show the action
+            if (!isFlipped) {
+                isFlipped = true;
+                cardInner.classList.add('is-flipped');
+            } else {
+                // If it's already flipped, do a quick shake to show it changed
+                cardInner.style.transform = 'rotateY(180deg) scale(1.05)';
+                setTimeout(() => {
+                    cardInner.style.transform = 'rotateY(180deg) scale(1)';
+                }, 200);
+            }
+        }
+    </script>
+</body>
+</html>
